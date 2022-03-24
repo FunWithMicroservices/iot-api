@@ -7,6 +7,9 @@ do
     esac
 done
 
+echo 'EEENV >>>>> '
+echo $ENV
+
 export ES_ENDPOINT=$ES_ENDPOINT
 export ES_PASSWORD=$ES_PASSWORD
 export ENV=$ENV
