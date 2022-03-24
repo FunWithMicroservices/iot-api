@@ -15,7 +15,10 @@ services:
   filebeat:
     image: "docker.elastic.co/beats/filebeat:8.1.1"
     container_name: workshop-iot-api-filebeat
-    env_file: ./app/.env
+    environment:
+      - ENV=${ENV:-dev}
+      - ES_ENDPOINT=${ES_ENDPOINT:-localhost:9200}
+      - ES_PASSWORD=${ES_PASSWORD:-elasticpw}
     volumes:
       - ./elastic/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - /var/lib/docker:/var/lib/docker:ro
@@ -26,7 +29,7 @@ services:
     image: nginx:1.21-alpine
     container_name: workshop-iot-api-nginx
     ports:
-      - 8003:80
+      - 80:80
     depends_on:
       - fastapi
     restart: always
