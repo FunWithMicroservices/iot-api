@@ -1,0 +1,28 @@
+name: CD
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        password: ${{ secrets.PASSWORD }}
+        username: ${{ secrets.USERNAME }}
+        host: ${{ secrets.HOST }}
+        script: |
+          cd iot-api
+          git pull origin master
+          export ES_ENDPOINT='${{ secrets.ES_ENDPOINT }}'
+          export ES_PASSWORD='${{ secrets.ES_PASSWORD }}'
+          export ENV=prod
+          bash ./server/start.sh
