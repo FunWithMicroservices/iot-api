@@ -15,10 +15,7 @@ services:
   filebeat:
     image: "docker.elastic.co/beats/filebeat:8.1.1"
     container_name: workshop-iot-api-filebeat
-    environment:
-      - ENV=${ENV:-dev}
-      - ES_ENDPOINT=${ES_ENDPOINT:-localhost:9200}
-      - ES_PASSWORD=${ES_PASSWORD:-elasticpw}
+    env_file: ./app/.env
     volumes:
       - ./elastic/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - /var/lib/docker:/var/lib/docker:ro
