@@ -9,4 +9,4 @@ output.elasticsearch:
   username: "elastic" 
   password: "${ES_PASSWORD}"
   indices:
-    - index: "iot-api-%{[agent.version]}-%{+yyyy.MM.dd}"
+    - index: "iot-api-${ENV}"
