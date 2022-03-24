@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi import status
 from models import Location, Speed
 
-from settings import fun, LOG_DIR
+from settings import LOG_DIR
 
 
 logger = logging.getLogger()
@@ -32,13 +32,12 @@ app = FastAPI()
 
 @app.get("/health", status_code=status.HTTP_200_OK)
 async def get_health():
-    logger.info("Health Check Requested")
-    fun()
     return {"message": "ok"}
 
 
 @app.post("/location/", status_code=status.HTTP_201_CREATED)
 async def post_location(location: Location):
+    location.produce()
     return {"message": "created"}
 
 

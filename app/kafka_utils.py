@@ -1,9 +1,13 @@
 import io
 import json
+import logging
 import avro.schema
 import avro.io
 
 from settings import KAFKA_PRODUCER
+
+
+logger = logging.getLogger(__name__)
 
 
 class KafkaAvroMixin:
@@ -38,6 +42,7 @@ class KafkaAvroMixin:
         }
 
     def to_avro(self):
+        logger.info(f"Convert {type(self).__name__} Obj to avro: {self.__dict__}")
         bytes_writer = io.BytesIO()
         encoder = avro.io.BinaryEncoder(bytes_writer)
         self._writer.write(self.__dict__, encoder)
@@ -45,4 +50,5 @@ class KafkaAvroMixin:
 
     def produce(self):
         KAFKA_PRODUCER.produce(self._topic_name, self.to_avro())
+        logger.info(f"Produce {type(self).__name__} and send to {self._topic_name}")
         KAFKA_PRODUCER.flush()

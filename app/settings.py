@@ -19,7 +19,3 @@ KAFKA_PRODUCER = Producer(**{
 })
 
 SCHEMA_REGISTRY_URL = os.environ["SCHEMA_REGISTRY_URL"]
-
-
-def fun():
-    logger.info("This is a logging test")
