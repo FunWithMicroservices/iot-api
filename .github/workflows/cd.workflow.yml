@@ -22,4 +22,4 @@ jobs:
         script: |
           cd iot-api
           git pull origin master
-          bash ./server/start.sh -h '${{ secrets.ES_ENDPOINT }}' -p '${{ secrets.ES_PASSWORD }}' -e 'prod'
+          bash ./server/start.sh
